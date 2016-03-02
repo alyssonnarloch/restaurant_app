@@ -16,7 +16,7 @@ import com.app.narlocks.restaurant_app.R;
 
 import java.util.List;
 
-public class ItemList extends ArrayAdapter<Item> {
+public class ItemListMenu extends ArrayAdapter<Item> {
     private final int THUMBSIZE = 96;
 
     private static class ViewHolder {
@@ -25,7 +25,7 @@ public class ItemList extends ArrayAdapter<Item> {
         TextView price;
     }
 
-    public ItemList(Context context, List<Item> items) {
+    public ItemListMenu(Context context, List<Item> items) {
         super(context, 0, items);
     }
 
@@ -37,7 +37,7 @@ public class ItemList extends ArrayAdapter<Item> {
         if(convertView == null) {
             viewHolder = new ViewHolder();
 
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_list, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_list_menu, parent, false);
 
             viewHolder.name = (TextView) convertView.findViewById(R.id.name);
             viewHolder.price = (TextView) convertView.findViewById(R.id.price);
@@ -54,7 +54,7 @@ public class ItemList extends ArrayAdapter<Item> {
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
         viewHolder.name.setText(item.getName());
-        viewHolder.price.setText(Double.toString(item.getPrice()));
+        viewHolder.price.setText(Extras.brFormat(item.getPrice()));
         viewHolder.imgIcon.setImageBitmap(decodedByte);
 
         return convertView;

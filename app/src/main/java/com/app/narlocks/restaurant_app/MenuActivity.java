@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
 
-import com.app.narlocks.helper.ItemList;
+import com.app.narlocks.helper.ItemListMenu;
 import com.app.narlocks.model.Item;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -54,7 +54,7 @@ public class MenuActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ItemList adapter = new ItemList(MenuActivity.this, items);
+                        ItemListMenu adapter = new ItemListMenu(MenuActivity.this, items);
                         ListView listView = (ListView) findViewById(R.id.menuList);
                         listView.setAdapter(adapter);
                     }
