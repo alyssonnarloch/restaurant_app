@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Restaurante</string>
     <string name="btn_payment">Pagamento</string>
+    <string name="title_payment">Pagamento</string>
     <string name="btn_new_order">Novo Pedido</string>
+    <string name="title_new_order">Novo Pedido</string>
+    <string name="title_confirmation_order">Confirmação do Pedido</string>
 </resources>

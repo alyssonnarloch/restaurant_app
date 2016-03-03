@@ -22,13 +22,15 @@
             style="@style/HomeButton"
             android:drawableTop="@drawable/clipboard"
 
-            android:text="@string/btn_new_order" />
+            android:text="@string/btn_new_order"
+            android:onClick="onNewOrderClick" />
 
         <Button
             android:id="@+id/btnPayment"
             style="@style/HomeButton"
             android:drawableTop="@drawable/money"
 
-            android:text="@string/btn_payment" />
+            android:text="@string/btn_payment"
+            android:onClick="onPaymentClick" />
     </LinearLayout>
 </LinearLayout>

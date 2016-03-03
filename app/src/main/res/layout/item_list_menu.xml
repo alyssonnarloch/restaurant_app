@@ -8,6 +8,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
+        android:layout_margin="4dp"
         android:layout_marginRight="8dp"/>
 
     <TextView
@@ -15,6 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/image"
+        android:textSize="@dimen/text_size_medium"
+        android:textStyle="bold"
         android:layout_toRightOf="@+id/image" />
 
     <TextView
@@ -23,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/name"
         android:layout_toRightOf="@+id/image"
+        android:textSize="@dimen/text_size_small"
         android:layout_marginTop="1dip" />
-hellboyslaves
 
 </RelativeLayout>

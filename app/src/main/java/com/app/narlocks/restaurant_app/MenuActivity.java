@@ -1,8 +1,10 @@
 package com.app.narlocks.restaurant_app;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.app.narlocks.helper.ItemListMenu;
@@ -19,7 +21,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends DashboardActivity {
 
     private List<Item> items;
 
@@ -27,6 +29,8 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        setHeader(getString(R.string.title_new_order), true, true);
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -57,6 +61,19 @@ public class MenuActivity extends AppCompatActivity {
                         ItemListMenu adapter = new ItemListMenu(MenuActivity.this, items);
                         ListView listView = (ListView) findViewById(R.id.menuList);
                         listView.setAdapter(adapter);
+
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Item item = items.get(position);
+                                //Toast.makeText(MenuActivity.this, "Clicou na " + item.getName(), Toast.LENGTH_SHORT).show();
+
+                                Intent confirmationView = new Intent(MenuActivity.this, ConfirmationActivity.class);
+                                confirmationView.putExtra("item", item);
+                                startActivity(confirmationView);
+                                //finish();
+                            }
+                        });
                     }
                 });
 

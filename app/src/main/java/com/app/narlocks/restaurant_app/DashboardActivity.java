@@ -1,6 +1,7 @@
 package com.app.narlocks.restaurant_app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
@@ -30,5 +31,11 @@ public class DashboardActivity extends Activity {
         if(!btnFeedbackVisible) {
             btnFeedback.setVisibility(View.INVISIBLE);
         }
+    }
+
+    public void onHomeClick(View view) {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
