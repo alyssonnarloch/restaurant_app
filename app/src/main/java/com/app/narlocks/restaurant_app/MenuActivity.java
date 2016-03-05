@@ -2,13 +2,15 @@ package com.app.narlocks.restaurant_app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.app.narlocks.helper.Extras;
 import com.app.narlocks.helper.ItemListMenu;
 import com.app.narlocks.model.Item;
+import com.app.narlocks.model.Order;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -24,6 +26,7 @@ import okhttp3.Response;
 public class MenuActivity extends DashboardActivity {
 
     private List<Item> items;
+    private Order order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,14 @@ public class MenuActivity extends DashboardActivity {
         setContentView(R.layout.activity_menu);
 
         setHeader(getString(R.string.title_new_order), true, true);
+
+        Intent intent = getIntent();
+
+        if(intent != null) {
+            order = (Order) intent.getSerializableExtra("order");
+        } else {
+            throw new RuntimeException("O pedido deve ser informado!");
+        }
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -43,40 +54,57 @@ public class MenuActivity extends DashboardActivity {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String result = response.body().string();
-
-                Log.d("Irráááááá", result);
-
-                Gson g = new Gson();
-
-                items = g.fromJson(result, new TypeToken<List<Item>>(){}.getType());
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ItemListMenu adapter = new ItemListMenu(MenuActivity.this, items);
-                        ListView listView = (ListView) findViewById(R.id.menuList);
-                        listView.setAdapter(adapter);
-
-                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                Item item = items.get(position);
-                                //Toast.makeText(MenuActivity.this, "Clicou na " + item.getName(), Toast.LENGTH_SHORT).show();
-
-                                Intent confirmationView = new Intent(MenuActivity.this, ConfirmationActivity.class);
-                                confirmationView.putExtra("item", item);
-                                startActivity(confirmationView);
-                                //finish();
-                            }
-                        });
+                        String connectionMessage = "";
+                        if (!Extras.isNetworkAvailable(MenuActivity.this)) {
+                            connectionMessage = "Verifique sua conexão com a internet.";
+                        }
+                        Toast.makeText(MenuActivity.this, "Erro ao adicionar o item ao pedido. " + connectionMessage, Toast.LENGTH_LONG).show();
                     }
                 });
+            }
 
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.isSuccessful()) {
+                    String result = response.body().string();
+                    Gson g = new Gson();
+
+                    items = g.fromJson(result, new TypeToken<List<Item>>() {
+                    }.getType());
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ItemListMenu adapter = new ItemListMenu(MenuActivity.this, items);
+                            ListView listView = (ListView) findViewById(R.id.menuList);
+                            listView.setAdapter(adapter);
+
+                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Item item = items.get(position);
+
+                                    Intent confirmationView = new Intent(MenuActivity.this, ConfirmationActivity.class);
+                                    confirmationView.putExtra("item", item);
+                                    confirmationView.putExtra("order", order);
+                                    startActivity(confirmationView);
+                                    //finish();
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MenuActivity.this, "Erro ao listar cardápio.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
     }

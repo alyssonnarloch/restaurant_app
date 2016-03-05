@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.app.narlocks.restaurant_app.ConfirmationActivity"
-    android:weightSum="1"
     android:orientation="vertical">
 
     <ViewStub
@@ -14,40 +13,56 @@
         android:inflatedId="@+id/header"
         android:layout="@layout/header" />
 
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/tvName"
-        android:layout_weight="0.02" />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:weightSum="1"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/tvPrice"
-        android:layout_weight="0.04" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_large"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/tvName"
+            android:layout_weight="0.02" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Quantidade:"
-        android:id="@+id/tvAmount"
-        android:layout_weight="0.02" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_medium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/tvPrice"
+            android:layout_weight="0.04" />
 
-    <EditText
-        android:layout_width="103dp"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/tfAmount" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Quantidade"
+            android:id="@+id/tvAmount"
+            android:layout_weight="0.02" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enviar Pedido"
-        android:id="@+id/btnSendOrder"
-        android:layout_weight="0.02" />
+        <EditText
+            android:layout_width="103dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/etAmount" />
+
+        <Button
+            android:id="@+id/btnSendOrder"
+            style="@style/OtherButton"
+            android:drawableTop="@drawable/cart"
+            android:text="Enviar Pedido"
+            android:onClick="onSendOrderClick"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_weight="0.02"/>
+    </LinearLayout>
 
 </LinearLayout>

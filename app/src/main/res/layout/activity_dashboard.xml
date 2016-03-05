@@ -21,7 +21,6 @@
             android:id="@+id/btnNewOrder"
             style="@style/HomeButton"
             android:drawableTop="@drawable/clipboard"
-
             android:text="@string/btn_new_order"
             android:onClick="onNewOrderClick" />
 
@@ -29,7 +28,6 @@
             android:id="@+id/btnPayment"
             style="@style/HomeButton"
             android:drawableTop="@drawable/money"
-
             android:text="@string/btn_payment"
             android:onClick="onPaymentClick" />
     </LinearLayout>
