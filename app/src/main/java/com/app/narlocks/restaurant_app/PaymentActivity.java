@@ -140,7 +140,7 @@ public class PaymentActivity extends DashboardActivity {
                             tvTotalPrice.setText(Extras.brFormat(totalPrice));
                             tvTotalPrice.setTypeface(null, Typeface.BOLD);
                             tvTotalPrice.setTextSize(22);
-                            tvTotalPrice.setPadding(10, 8, 10, 2);
+                            tvTotalPrice.setPadding(3, 8, 3, 2);
 
                             TextView tvTotalAmount = new TextView(PaymentActivity.this);
                             tvTotalAmount.setText(Integer.toString(totalAmount));

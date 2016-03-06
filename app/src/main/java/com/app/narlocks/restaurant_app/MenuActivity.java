@@ -89,10 +89,10 @@ public class MenuActivity extends DashboardActivity {
                                     Item item = items.get(position);
 
                                     Intent confirmationView = new Intent(MenuActivity.this, ConfirmationActivity.class);
+                                    confirmationView.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     confirmationView.putExtra("item", item);
                                     confirmationView.putExtra("order", order);
                                     startActivity(confirmationView);
-                                    finish();
                                 }
                             });
                         }

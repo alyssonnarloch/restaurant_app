@@ -71,10 +71,10 @@ public class HomeActivity extends DashboardActivity {
                     order = gson.fromJson(result, Order.class);
 
                     Intent menuIntent = new Intent(HomeActivity.this, MenuActivity.class);
+                    menuIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     menuIntent.putExtra("order", order);
 
                     startActivity(menuIntent);
-                    finish();
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override
@@ -90,6 +90,5 @@ public class HomeActivity extends DashboardActivity {
     public void onPaymentClick(View view) {
         Intent paymentIntent = new Intent(HomeActivity.this, PaymentActivity.class);
         startActivity(paymentIntent);
-        finish();
     }
 }

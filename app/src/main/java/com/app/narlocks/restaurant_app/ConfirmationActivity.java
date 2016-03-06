@@ -101,6 +101,7 @@ public class ConfirmationActivity extends DashboardActivity {
                         OrderItem orderItem = gson.fromJson(result, OrderItem.class);
 
                         Intent menuIntent = new Intent(ConfirmationActivity.this, MenuActivity.class);
+                        menuIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         menuIntent.putExtra("order", order);
 
                         runOnUiThread(new Runnable() {
@@ -111,7 +112,6 @@ public class ConfirmationActivity extends DashboardActivity {
                         });
 
                         startActivity(menuIntent);
-                        finish();
                     } else {
                         runOnUiThread(new Runnable() {
                             @Override
