@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".ConfirmationActivity" >
         </activity>
+        <activity android:name=".PaymentActivity" >
+        </activity>
     </application>
 
 </manifest>

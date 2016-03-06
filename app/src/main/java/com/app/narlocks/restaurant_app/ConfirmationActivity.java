@@ -56,7 +56,7 @@ public class ConfirmationActivity extends DashboardActivity {
         String amountText = etAmount.getText().toString();
 
         if(amountText.isEmpty()) {
-
+            Toast.makeText(ConfirmationActivity.this, "Informe a quantidade a ser pedida!", Toast.LENGTH_LONG).show();
         } else {
             int amount = Integer.parseInt(amountText);
 
@@ -103,7 +103,15 @@ public class ConfirmationActivity extends DashboardActivity {
                         Intent menuIntent = new Intent(ConfirmationActivity.this, MenuActivity.class);
                         menuIntent.putExtra("order", order);
 
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(ConfirmationActivity.this, item.getName() + " adicionado ao pedido com sucesso!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
                         startActivity(menuIntent);
+                        finish();
                     } else {
                         runOnUiThread(new Runnable() {
                             @Override

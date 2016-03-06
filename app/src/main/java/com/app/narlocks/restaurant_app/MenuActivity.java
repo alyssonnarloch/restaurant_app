@@ -92,7 +92,7 @@ public class MenuActivity extends DashboardActivity {
                                     confirmationView.putExtra("item", item);
                                     confirmationView.putExtra("order", order);
                                     startActivity(confirmationView);
-                                    //finish();
+                                    finish();
                                 }
                             });
                         }

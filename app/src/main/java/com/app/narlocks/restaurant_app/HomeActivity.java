@@ -74,11 +74,12 @@ public class HomeActivity extends DashboardActivity {
                     menuIntent.putExtra("order", order);
 
                     startActivity(menuIntent);
+                    finish();
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(HomeActivity.this, "Erro ao adicionar item ao pedido.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HomeActivity.this, "Erro ao adicionar item ao pedido.", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -87,6 +88,8 @@ public class HomeActivity extends DashboardActivity {
     }
 
     public void onPaymentClick(View view) {
-
+        Intent paymentIntent = new Intent(HomeActivity.this, PaymentActivity.class);
+        startActivity(paymentIntent);
+        finish();
     }
 }
