@@ -1,5 +1,6 @@
 package com.app.narlocks.restaurant_app;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -69,16 +70,27 @@ public class PaymentActivity extends DashboardActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            double totalPrice = 0.0;
+                            int totalAmount = 0;
                             TableRow tbRowHeader = new TableRow(PaymentActivity.this);
 
                             TextView tvNameTitle = new TextView(PaymentActivity.this);
                             tvNameTitle.setText("Item");
+                            tvNameTitle.setTypeface(null, Typeface.BOLD);
+                            tvNameTitle.setTextSize(19);
+                            tvNameTitle.setPadding(3, 2, 3, 2);
 
                             TextView tvPriceTitle = new TextView(PaymentActivity.this);
                             tvPriceTitle.setText("Valor");
+                            tvPriceTitle.setTypeface(null, Typeface.BOLD);
+                            tvPriceTitle.setTextSize(19);
+                            tvPriceTitle.setPadding(7, 2, 7, 2);
 
                             TextView tvAmountTitle = new TextView(PaymentActivity.this);
-                            tvAmountTitle.setText("Quantidade");
+                            tvAmountTitle.setText("Qtde.");
+                            tvAmountTitle.setTypeface(null, Typeface.BOLD);
+                            tvAmountTitle.setTextSize(19);
+                            tvAmountTitle.setPadding(3, 2, 3, 2);
 
                             tbRowHeader.addView(tvNameTitle);
                             tbRowHeader.addView(tvPriceTitle);
@@ -92,19 +104,55 @@ public class PaymentActivity extends DashboardActivity {
 
                                 TextView tvName = new TextView(PaymentActivity.this);
                                 tvName.setText(orderItem.getItem().getName());
+                                tvName.setTextSize(18);
+                                tvName.setPadding(3, 2, 3, 2);
 
                                 TextView tvPrice = new TextView(PaymentActivity.this);
                                 tvPrice.setText(Extras.brFormat(orderItem.getItem().getPrice()));
+                                tvPrice.setTextSize(18);
+                                tvPrice.setPadding(7, 2, 7, 2);
 
                                 TextView tvAmount = new TextView(PaymentActivity.this);
                                 tvAmount.setText(Integer.toString(orderItem.getAmount()));
+                                tvAmount.setTextSize(18);
+                                tvAmount.setPadding(3, 2, 3, 2);
 
                                 tbRowBody.addView(tvName);
                                 tbRowBody.addView(tvPrice);
                                 tbRowBody.addView(tvAmount);
 
                                 tbOrdeItems.addView(tbRowBody, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+
+                                totalPrice += orderItem.getItem().getPrice();
+                                totalAmount += orderItem.getAmount();
                             }
+
+                            TableRow tbRowFoot = new TableRow(PaymentActivity.this);
+                            tbRowFoot.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
+
+                            TextView tvTotalTitle = new TextView(PaymentActivity.this);
+                            tvTotalTitle.setText("Total");
+                            tvTotalTitle.setTypeface(null, Typeface.BOLD);
+                            tvTotalTitle.setTextSize(22);
+                            tvTotalTitle.setPadding(3, 8, 3, 2);
+
+                            TextView tvTotalPrice = new TextView(PaymentActivity.this);
+                            tvTotalPrice.setText(Extras.brFormat(totalPrice));
+                            tvTotalPrice.setTypeface(null, Typeface.BOLD);
+                            tvTotalPrice.setTextSize(22);
+                            tvTotalPrice.setPadding(10, 8, 10, 2);
+
+                            TextView tvTotalAmount = new TextView(PaymentActivity.this);
+                            tvTotalAmount.setText(Integer.toString(totalAmount));
+                            tvTotalAmount.setTypeface(null, Typeface.BOLD);
+                            tvTotalAmount.setTextSize(22);
+                            tvTotalAmount.setPadding(3, 8, 3, 2);
+
+                            tbRowFoot.addView(tvTotalTitle);
+                            tbRowFoot.addView(tvTotalPrice);
+                            tbRowFoot.addView(tvTotalAmount);
+
+                            tbOrdeItems.addView(tbRowFoot, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
                         }
                     });
                 } else {

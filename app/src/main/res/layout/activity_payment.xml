@@ -13,8 +13,13 @@
         android:inflatedId="@+id/header"
         android:layout="@layout/header" />
 
-    <TableLayout
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/tbOrderItems"></TableLayout>
+        android:layout_height="fill_parent">
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/tbOrderItems"></TableLayout>
+    </ScrollView>
 </LinearLayout>
