@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.narlocks.helper.Extras;
+import com.app.narlocks.helper.SessionManager;
 import com.app.narlocks.model.OrderItem;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -35,9 +36,11 @@ public class PaymentActivity extends DashboardActivity {
 
         tbOrdeItems = (TableLayout) findViewById(R.id.tbOrderItems);
 
+        SessionManager session = new SessionManager(getApplicationContext());
         OkHttpClient client = new OkHttpClient();
+
         Request request = new Request.Builder()
-                .url("http://52.36.228.76:8080/restaurant_service/webresources/orderitem/order_items/user/1")
+                .url("http://52.36.228.76:8080/restaurant_service/webresources/orderitem/order_items/user/" + session.getUserId())
                 .header("Authorization", "Basic dHJ1dGFsb2NvQMOpbm9pem1hbm81Ng==")
                 .addHeader("Accept", "application/json")
                 .build();

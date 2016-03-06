@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.app.narlocks.helper.Extras;
+import com.app.narlocks.helper.SessionManager;
 import com.app.narlocks.model.Order;
 import com.google.gson.Gson;
 
@@ -32,10 +33,11 @@ public class HomeActivity extends DashboardActivity {
     }
 
     public void onNewOrderClick(View view) {
+        SessionManager session = new SessionManager(getApplicationContext());
         OkHttpClient client = new OkHttpClient();
 
         RequestBody formBody = new FormBody.Builder()
-                .add("user_id", "1")
+                .add("user_id", Integer.toString(session.getUserId()))
                 .build();
 
         Request request = new Request.Builder()

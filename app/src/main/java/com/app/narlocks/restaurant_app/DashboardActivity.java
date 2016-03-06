@@ -8,6 +8,8 @@ import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.app.narlocks.helper.SessionManager;
+
 public class DashboardActivity extends Activity {
 
     @Override
@@ -27,9 +29,9 @@ public class DashboardActivity extends Activity {
             btnHome.setVisibility(View.INVISIBLE);
         }
 
-        Button btnFeedback = (Button) inflated.findViewById(R.id.btnFeedback);
+        Button btnLogout = (Button) inflated.findViewById(R.id.btnLogout);
         if(!btnFeedbackVisible) {
-            btnFeedback.setVisibility(View.INVISIBLE);
+            btnLogout.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -37,5 +39,15 @@ public class DashboardActivity extends Activity {
         Intent intent = new Intent(this, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+    public void onLogoutClick(View view) {
+        SessionManager session = new SessionManager(getApplicationContext());
+
+        session.logoutUser();
+
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(loginIntent);
     }
 }

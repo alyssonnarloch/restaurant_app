@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.app.narlocks.helper.SessionManager;
+
 public class SplashActivity extends AppCompatActivity {
 
     private static int SPLASH_TIME_OUT = 3000;
@@ -20,9 +22,16 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                Intent homeIntent = new Intent(SplashActivity.this, HomeActivity.class);
-                homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(homeIntent);
+                SessionManager session = new SessionManager(getApplicationContext());
+                Intent intent = null;
+                if(session.isLoggedIn()) {
+                    intent = new Intent(SplashActivity.this, HomeActivity.class);
+                } else {
+                    intent = new Intent(SplashActivity.this, LoginActivity.class);
+                }
+
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 finish();
             }
         }, SPLASH_TIME_OUT);

@@ -14,10 +14,10 @@ public class SessionManager {
 
     int PRIVATE_MODE = 0;
 
-    private static final String PREF_NAME = "AndroidHivePref";
+    private static final String PREF_NAME = "AndroidSessionPref";
     private static final String IS_LOGIN = "IsLoggedIn";
     public static final String KEY_NAME = "name";
-    public static final String KEY_LOGIN = "login";
+    public static final String KEY_ID = "id";
 
     public SessionManager(Context context){
         this._context = context;
@@ -25,10 +25,10 @@ public class SessionManager {
         editor = pref.edit();
     }
 
-    public void createLoginSession(String name, String login){
+    public void createLoginSession(String name, int id){
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_NAME, name);
-        editor.putString(KEY_LOGIN, login);
+        editor.putInt(KEY_ID, id);
         editor.commit();
     }
 
@@ -40,7 +40,6 @@ public class SessionManager {
 
             _context.startActivity(i);
         }
-
     }
 
     public void logoutUser(){
@@ -49,7 +48,6 @@ public class SessionManager {
 
         Intent i = new Intent(_context, LoginActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         _context.startActivity(i);
@@ -57,5 +55,12 @@ public class SessionManager {
 
     public boolean isLoggedIn(){
         return pref.getBoolean(IS_LOGIN, false);
+    }
+
+    public int getUserId() {
+        if(this.isLoggedIn()) {
+            return pref.getInt(KEY_ID, 0);
+        }
+        return 0;
     }
 }
