@@ -2,6 +2,9 @@
     <string name="app_name">Restaurante</string>
     <string name="btn_payment">Pagamento</string>
     <string name="btn_new_order">Novo Pedido</string>
+    <string name="btn_payment_cash">Dinheiro</string>
+    <string name="btn_payment_debit">Débito</string>
+    <string name="btn_payment_credit">Crédito</string>
     <string name="title_new_order">Novo Pedido</string>
     <string name="title_confirmation_order">Confirmação do Pedido</string>
     <string name="title_payment">Pagamento</string>

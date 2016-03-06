@@ -1,7 +1,9 @@
 package com.app.narlocks.restaurant_app;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -9,6 +11,7 @@ import android.widget.Toast;
 
 import com.app.narlocks.helper.Extras;
 import com.app.narlocks.helper.SessionManager;
+import com.app.narlocks.model.Order;
 import com.app.narlocks.model.OrderItem;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -18,14 +21,17 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class PaymentActivity extends DashboardActivity {
 
     private TableLayout tbOrdeItems;
     private List<OrderItem> orderItems;
+    private Order orderPaid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,5 +174,86 @@ public class PaymentActivity extends DashboardActivity {
                 }
             }
         });
+    }
+
+    public void onPaymentCashClick(View view) {
+        makePayment(Order.PAYMENT_METHOD_CASH);
+    }
+
+    public void onPaymentCreditClick(View view) {
+        makePayment(Order.PAYMENT_METHOD_CREDIT);
+    }
+
+    public void onPaymentDebitClick(View view) {
+        makePayment(Order.PAYMENT_METHOD_DEBIT);
+    }
+
+    public void makePayment(int paymentMethod) {
+        OkHttpClient client = new OkHttpClient();
+
+        Order order = null;
+
+        if(orderItems.size() > 0) {
+            order = orderItems.get(0).getOrder();
+        } else {
+            Toast.makeText(PaymentActivity.this, "Nenhum item adicionado ao pedido.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if(order != null) {
+            RequestBody formBody = new FormBody.Builder()
+                    .add("order_id", Integer.toString(order.getId()))
+                    .add("payment_method", Integer.toString(paymentMethod))
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url("http://52.36.228.76:8080/restaurant_service/webresources/order/payment")
+                    .put(formBody)
+                    .header("Authorization", "Basic dHJ1dGFsb2NvQMOpbm9pem1hbm81Ng==")
+                    .addHeader("Accept", "application/json")
+                    .build();
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String connectionMessage = "";
+                            if (!Extras.isNetworkAvailable(PaymentActivity.this)) {
+                                connectionMessage = "Verifique sua conexão com a internet.";
+                            }
+                            Toast.makeText(PaymentActivity.this, "Erro ao efetuar o pagamento do pedido. " + connectionMessage, Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (response.isSuccessful()) {
+                        Intent homeIntent = new Intent(PaymentActivity.this, HomeActivity.class);
+                        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(PaymentActivity.this, "Pagamento efetuado com sucesso!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        startActivity(homeIntent);
+                    } else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(PaymentActivity.this, "Erro ao efetuar o pagamento do pedido.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+            });
+        }
     }
 }

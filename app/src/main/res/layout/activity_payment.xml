@@ -1,25 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.app.narlocks.restaurant_app.PaymentActivity">
+    xmlns:ads="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center">
 
-    <ViewStub
-        android:id="@+id/vsHeader"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inflatedId="@+id/header"
-        android:layout="@layout/header" />
+        <ViewStub
+            android:id="@+id/vsHeader"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inflatedId="@+id/header"
+            android:layout="@layout/header" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnPaymentCash"
+                style="@style/HomeButton"
+                android:drawableTop="@drawable/cash"
+                android:text="@string/btn_payment_cash"
+                android:onClick="onPaymentCashClick" />
+
+            <Button
+                android:id="@+id/btnPaymentDebit"
+                style="@style/HomeButton"
+                android:drawableTop="@drawable/debit"
+                android:text="@string/btn_payment_debit"
+                android:onClick="onPaymentDebitClick" />
+
+            <Button
+                android:id="@+id/btnPaymentCredit"
+                style="@style/HomeButton"
+                android:drawableTop="@drawable/credit"
+                android:text="@string/btn_payment_credit"
+                android:onClick="onPaymentCreditClick" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/footer"
+        android:layout_below="@+id/header"
+        android:fillViewport="true">
 
-        <TableLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/tbOrderItems"></TableLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tbOrderItems"></TableLayout>
+        </LinearLayout>
     </ScrollView>
-</LinearLayout>
+</RelativeLayout>  

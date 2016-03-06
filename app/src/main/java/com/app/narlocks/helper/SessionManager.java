@@ -63,4 +63,11 @@ public class SessionManager {
         }
         return 0;
     }
+
+    public String getUserName() {
+        if(this.isLoggedIn()) {
+            return pref.getString(KEY_NAME, "");
+        }
+        return "";
+    }
 }
