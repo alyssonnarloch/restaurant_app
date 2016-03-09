@@ -3,6 +3,7 @@ package com.app.narlocks.restaurant_app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -30,6 +31,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        EditText etLogin = (EditText) findViewById(R.id.etLogin);
+        etLogin.setInputType(InputType.TYPE_CLASS_TEXT);
     }
 
     public void onLoginClick(View view) {

@@ -12,6 +12,21 @@
         android:layout="@layout/header" />
 
     <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/tvUserName"
+            android:gravity="center_horizontal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dashboardButtons"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"

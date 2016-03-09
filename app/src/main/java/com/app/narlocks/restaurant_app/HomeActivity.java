@@ -3,6 +3,7 @@ package com.app.narlocks.restaurant_app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.narlocks.helper.Extras;
@@ -30,6 +31,11 @@ public class HomeActivity extends DashboardActivity {
         setContentView(R.layout.activity_dashboard);
 
         setHeader(getString(R.string.app_name), true, true);
+
+        SessionManager session = new SessionManager(getApplicationContext());
+        TextView tvUserName = (TextView) findViewById(R.id.tvUserName);
+
+        tvUserName.setText("Bem vindo(a)!\n" + session.getUserName());
     }
 
     public void onNewOrderClick(View view) {

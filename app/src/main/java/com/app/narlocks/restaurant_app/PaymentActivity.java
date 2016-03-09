@@ -132,7 +132,7 @@ public class PaymentActivity extends DashboardActivity {
 
                                 tbOrdeItems.addView(tbRowBody, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
 
-                                totalPrice += orderItem.getItem().getPrice();
+                                totalPrice += orderItem.getItem().getPrice() * orderItem.getAmount();
                                 totalAmount += orderItem.getAmount();
                             }
 
@@ -239,7 +239,7 @@ public class PaymentActivity extends DashboardActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(PaymentActivity.this, "Pagamento efetuado com sucesso!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PaymentActivity.this, "Pedido concluído! O pagamento foi efetuado com sucesso!", Toast.LENGTH_LONG).show();
                             }
                         });
 
